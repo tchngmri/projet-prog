@@ -13,5 +13,5 @@ let bien_typee expr =
       | IN x -> let a,b = aux x in (a,1)
       | FLO x -> let a,b = aux x in (a,0)
       | Plusi (x,y) | Moinsi(x,y) | Multi (x,y) | Divi (x,y) | Mod(x,y) -> let a,b = aux x and c,d = aux y in (a&&c&&(b==1)&&(d==1), 1)
-      | Plusf (x,y) | Multf (x,y) | Moins(x,y) -> let a,b = aux x and c,d = aux y in (a&&c&&(b==0)&&(d==0), 0)
+      | Plusf (x,y) | Multf (x,y) | Moinsf(x,y) -> let a,b = aux x and c,d = aux y in (a&&c&&(b==0)&&(d==0), 0)
 in let a,b = aux expr in a

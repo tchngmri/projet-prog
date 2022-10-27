@@ -1,5 +1,5 @@
 all : asyntax.cmo lexer.cmo parser.cmo main.cmo
-	ocamlc x86_64.cmo asyntax.cmo lexer.cmo parser.cmo main.cmo -o main
+	ocamlc x86_64.cmo asyntax.cmo lexer.cmo parser.cmo main.cmo -o main && pdflatex rapport.tex
 
 main.cmo :
 	ocamlc -c main.ml

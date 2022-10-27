@@ -68,5 +68,5 @@ let principale expr =
 let _ =
   let argument = Lexing.from_channel (open_in Sys.argv.(1)) in (* Mettre stdin pour lire directement le texte ecrit dans la console *)
   let expr = Parser.parse Lexer.token argument in
-  (*if not (Asyntax.bien_typee expr) then (failwith "Erreur de typage") else*)
+  if not (Asyntax.bien_typee expr) then (failwith "Erreur de typage") else
   principale expr

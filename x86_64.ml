@@ -142,6 +142,7 @@ let movb a b = ins "movb %a, %a" a () b ()
 let movw a b = ins "movw %a, %a" a () b ()
 let movl a b = ins "movl %a, %a" a () b ()
 let movq a b = ins "movq %a, %a" a () b ()
+let movsd a b = ins "movq %a, %a" a () b ()
 
 let movabsq a b = ins "movabsq %a, %s" a () b
 
@@ -182,6 +183,7 @@ let addb a b = ins "addb %a, %a" a () b ()
 let addw a b = ins "addw %a, %a" a () b ()
 let addl a b = ins "addl %a, %a" a () b ()
 let addq a b = ins "addq %a, %a" a () b ()
+let addsq a b = ins "addq %a, %a" a () b ()
 
 let subb a b = ins "subb %a, %a" a () b ()
 let subw a b = ins "subw %a, %a" a () b ()
@@ -191,6 +193,7 @@ let subq a b = ins "subq %a, %a" a () b ()
 let imulw a b = ins "imulw %a, %a" a () b ()
 let imull a b = ins "imull %a, %a" a () b ()
 let imulq a b = ins "imulq %a, %a" a () b ()
+let mulsd a b = ins "imulq %a, %a" a () b ()
 
 let idivq a = ins "idivq %a" a ()
 let cqto = S "\tcqto\n"
