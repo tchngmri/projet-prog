@@ -1,7 +1,8 @@
 
-open Asyntax
-open Lexer
-open Parser
+(*d'abord un exemple *)
+type exp = Int of int | Float of float | Par of exp | Moins of exp | Plus of exp | IN of exp | FLO of exp | Plusi of exp*exp 
+| Multi of exp*exp | Moinsi of exp*exp | Divi of exp * exp| Mod of exp*exp | Plusf of exp*exp | Multf of exp*exp | Moinsf of exp*exp ;;
+
 open Format
 open X86_64
 
@@ -20,28 +21,25 @@ let rec calcul expr = match expr with
       pushq (reg rdi) ++ 
       calcul y ++ 
       popq (rsi) ++ 
-      subq (reg rdi) (reg rsi) ++
-      movq (reg rsi) (reg rdi)
+      subq (reg rsi) (reg rdi)
   | Multi (x,y) -> calcul x ++ 
       pushq (reg rdi) ++ 
       calcul y ++ 
       popq (rsi) ++ 
       imulq (reg rsi) (reg rdi)
-  | Divi (x,y) -> calcul x ++ (*à diviser dans rax, en argument de la division ce par quoi tu veux diviser, quotient est dans rax, reste dans rdx*)
+  | Divi (x,y) -> calcul x ++ (*à diviser dans rdi, en argument de la division ce par quoi tu veux diviser, quotient est dans rax, reste dans rdx*)
       pushq (reg rdi) ++ 
       calcul y ++ 
-      movq (reg rdi) (reg rbx) ++
-      popq (rax) ++ 
-      xorq (reg rdx) (reg rdx) ++
-      idivq (reg rbx) ++ 
+      movq (reg rdi) (reg r12) ++
+      popq (rdi) ++ 
+      idivq (reg r12) ++ 
       movq (reg rax) (reg rdi)
   | Mod (x,y) -> calcul x ++ 
     pushq (reg rdi) ++ 
     calcul y ++ 
-    movq (reg rdi) (reg rbx) ++
-    popq (rax) ++ 
-    xorq (reg rdx) (reg rdx) ++
-    idivq (reg rbx) ++ 
+    movq (reg rdi) (reg r12) ++
+    popq (rdi) ++ 
+    idivq (reg r12) ++ 
     movq (reg rdx) (reg rdi)
   | IN x -> calcul x
 
@@ -65,8 +63,13 @@ let principale expr =
       X86_64.print_program fmt code; (*ecrit code dans fichier*)
       close_out c (*ferme le fichier*)
 
-let _ =
-  let argument = Lexing.from_channel (open_in Sys.argv.(1)) in (* Mettre stdin pour lire directement le texte ecrit dans la console *)
-  let expr = Parser.parse Lexer.token argument in
-  (*if not (Asyntax.bien_typee expr) then (failwith "Erreur de typage") else*)
-  principale expr
+(* let _ = principale (Plusi((Moins((Multi (Moins(Int 2), Int 3)))),Int 1)) *);;
+
+
+
+
+
+
+
+
+

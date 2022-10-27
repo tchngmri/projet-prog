@@ -28,4 +28,6 @@ expr:
 | expr MOD expr { Asyntax.Mod ($1,$3) }
 | MINUS LPAREN expr RPAREN { Asyntax.Moins ($3) }
 | PLUS LPAREN expr RPAREN { Asyntax.Plus ($3) }
+| PLUS INT { Asyntax.Int ($2) }
+| MINUS INT { Asyntax.Moins (Asyntax.Int ($2)) }
 ;
