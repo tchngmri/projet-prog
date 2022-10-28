@@ -3,13 +3,11 @@
 main:
 	movq $1, %rdi
 	pushq %rdi
-	movq $2, %rdi
-	pushq %rdi
-	movq $3, %rdi
+	movq $5, %rdi
+	negq %rdi
 	popq %rsi
-	imulq %rsi, %rdi
-	popq %rsi
-	addq %rsi, %rdi
+	subq %rdi, %rsi
+	movq %rsi, %rdi
 	call print_int
 	ret
 
