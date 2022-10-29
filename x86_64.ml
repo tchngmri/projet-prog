@@ -82,6 +82,9 @@ let r13b = "%r13b"
 let r14b = "%r14b"
 let r15b = "%r15b"
 
+let xmm0 = "%xmm0"
+let xmm1 = "%xmm1"
+
 type label = string
 
 type 'size operand = formatter -> unit -> unit
@@ -142,7 +145,7 @@ let movb a b = ins "movb %a, %a" a () b ()
 let movw a b = ins "movw %a, %a" a () b ()
 let movl a b = ins "movl %a, %a" a () b ()
 let movq a b = ins "movq %a, %a" a () b ()
-let movsd a b = ins "movq %a, %a" a () b ()
+let movsd a b = ins "movsd %a, %a" a () b ()
 
 let movabsq a b = ins "movabsq %a, %s" a () b
 
@@ -183,17 +186,18 @@ let addb a b = ins "addb %a, %a" a () b ()
 let addw a b = ins "addw %a, %a" a () b ()
 let addl a b = ins "addl %a, %a" a () b ()
 let addq a b = ins "addq %a, %a" a () b ()
-let addsq a b = ins "addq %a, %a" a () b ()
+let addsd a b = ins "addsd %a, %a" a () b ()
 
 let subb a b = ins "subb %a, %a" a () b ()
 let subw a b = ins "subw %a, %a" a () b ()
 let subl a b = ins "subl %a, %a" a () b ()
 let subq a b = ins "subq %a, %a" a () b ()
+let subsd a b = ins "subsd %a, %a" a () b ()
 
 let imulw a b = ins "imulw %a, %a" a () b ()
 let imull a b = ins "imull %a, %a" a () b ()
 let imulq a b = ins "imulq %a, %a" a () b ()
-let mulsd a b = ins "imulq %a, %a" a () b ()
+let mulsd a b = ins "mulsd %a, %a" a () b ()
 
 let idivq a = ins "idivq %a" a ()
 let cqto = S "\tcqto\n"
@@ -291,6 +295,7 @@ let dint  l = ins ".int %a" pr_ilist l
 let dword l = ins ".word %a" pr_ilist l
 let dquad l = ins ".quad %a" pr_ilist l
 let string s = ins ".string %S" s
+let double d = ins ".double %f" d
 
 let address l = ins ".quad %a" pr_alist l
 let space n = ins ".space %d" n
