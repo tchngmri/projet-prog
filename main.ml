@@ -49,23 +49,23 @@ let calcul_total expr =
     | FLO x -> calcul x ++ if ((type_resultat x) ==1) then inline "\t cvtsi2sd %rdi, %xmm0\n" else nop
     | Multf (x,y) -> calcul x ++ 
       subq (imm 8) (reg rsp) ++ 
-      inline "\tmovsd $xmm0, (%rsp)\n" ++
+      inline "\tmovsd %xmm0, (%rsp)\n" ++
       calcul y ++
-      inline "\tmovsd (%rsp), $xmm1\n" ++
+      inline "\tmovsd (%rsp), %xmm1\n" ++
       addq (imm 8) (reg rsp) ++
       mulsd (reg xmm1) (reg xmm0)
     | Plusf (x,y) -> calcul x ++ 
         subq (imm 8) (reg rsp) ++ 
-        inline "\tmovsd $xmm0, (%rsp)\n" ++
+        inline "\tmovsd %xmm0, (%rsp)\n" ++
         calcul y ++
-        inline "\tmovsd (%rsp), $xmm1\n" ++
+        inline "\tmovsd (%rsp), %xmm1\n" ++
         addq (imm 8) (reg rsp) ++
         addsd (reg xmm1) (reg xmm0)
     | Moinsf (x,y) -> calcul x ++ 
     subq (imm 8) (reg rsp) ++ 
-    inline "\tmovsd $xmm0, (%rsp)\n" ++
+    inline "\tmovsd %xmm0, (%rsp)\n" ++
     calcul y ++
-    inline "\tmovsd (%rsp), $xmm1\n" ++
+    inline "\tmovsd (%rsp), %xmm1\n" ++
     addq (imm 8) (reg rsp) ++
     subsd (reg xmm1) (reg xmm0) in 
   (!l, calcul expr)
@@ -104,12 +104,13 @@ let principale expr =
       printi ++ 
       printflo;
     data = 
-      label "S_int" ++ string "Le résultat est %d !\n" ++
-      label "S_float" ++ string "Le résultat est %f !\n" ++ valeurflottants l; } in 
+      label "S_int" ++ string "Le resultat est %d !\n" ++
+      label "S_float" ++ string "Le resultat est %f !\n" ++ valeurflottants l; } in 
   let c = open_out "resultat.s" in (*crée un fichier*)
   let fmt = formatter_of_out_channel c in 
   X86_64.print_program fmt code; (*ecrit code dans fichier*)
   close_out c (*ferme le fichier*)
+
 
 let _ =
   let argument = Lexing.from_channel (open_in Sys.argv.(1)) in 
