@@ -1,11 +1,36 @@
-\documentclass[]{article}
+\documentclass{article}
 
-\title{Projet Programmation 1}
-
-\date{}
+\title{Rapport : Projet de programmation 1 }
+\author{Marie Tcheng }
 
 \begin{document}
 
 \maketitle
+
+\section{Description}
+Mon projet est composé de plusieurs fichiers : 
+\begin{enumerate}
+    \item un \textbf{Makefile},
+    \item un fichier \textbf{asyntax.ml} qui définit de le type expression et vérifie qu'une expression est bien typée,
+    \item un fichier \textbf{lexer.mll} qui effectue l'analyse lexicale d'une formule arithmétique,
+    \item un fichier \textbf{parser.mly} qui crée l'arbre syntaxique,
+    \item et un fichier \textbf{main.ml} (s'exécute par le makefil en \textbf{aritha}) qui crée un fichier .s et écrit le code assembleur correspondant à l'expression. 
+\end{enumerate}
+
+\section{Difficultés rencontrées}
+Globalement, j'ai eu énormément de mal à démarrer, car je ne savais pas par où commencer, ou comment aborder le projet.
+J'ai mis du temps à comprendre qu'il fallait utiliser des outils comme ocamllex, et en ait donc perdu beaucoup à essayer de tout faire à la main, puis à devoir tout recommencer. 
+C'était particulièrement stressant et démoralisant. Bien que j'ai beaucoup apprécié l'entraide, je n'ai pas trouvé satisfaisant le fait d'être dépendante de mes camarades pour le projet, ça ne m'a pas donné beaucoup confiance en moi. 
+Sinon, j'ai eu beaucoup de mal à me renseigner sur comment gérer les flottants en assembleur, c'est pas super bien documenté à mon goût. 
+
+\section{Remerciements}
+Je tiens à remercier de nombreuses personnes pour m'avoir accompagné tout le long de ce projet, et m'avoir permis de devenir la personne que je suis aujourd'hui. 
+Merci à Louis d'avoir passé des heures sup avec Enzo et moi en salle machine, sans quoi j'aurais rendu environ 3 lignes de code. 
+Merci à tout le departement LSV de l'ENS, sans qui il n'y aurait pas de salle machine, donc pas de code non plus. 
+Merci à Enzo de m'écouter me plaindre continuellement.
+Merci à Jérôme, Maelle et Louis (Lachaize cette fois-ci) pour votre aide sur l'assembleur. Merci à Sasha avec un c pour ton aide sur tout le reste.
+Et du coup merci aux gens de la classe qui auraient potentiellement aidé Sacha qui a ensuite pu m'aider.
+Merci à ma prof de techno de 6eme de m'avoir appris à allumer un ordinateur.
+Merci à Arthur de m'avoir fait mon linge dimanche dernier. 
 
 \end{document}

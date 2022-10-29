@@ -69,6 +69,9 @@ val r12: [`Q] register
 val r13: [`Q] register
 val r14: [`Q] register
 val r15: [`Q] register
+val xmm0: [`Q] register
+val xmm1: [`Q] register
+
   (** registres 64 bits *)
 
 val eax: [`L] register
@@ -165,6 +168,7 @@ val movb: [`B] operand -> [`B] operand -> text
 val movw: [`W] operand -> [`W] operand -> text
 val movl: [`L] operand -> [`L] operand -> text
 val movq: [`Q] operand -> [`Q] operand -> text
+val movsd: [`Q] operand -> [`Q] operand -> text
   (** attention : toutes les combinaisons d'opérandes ne sont pas permises *)
 
 val movsbw: [`B] operand -> [`W] register -> text
@@ -211,15 +215,19 @@ val addb: [`B] operand -> [`B] operand -> text
 val addw: [`W] operand -> [`W] operand -> text
 val addl: [`L] operand -> [`L] operand -> text
 val addq: [`Q] operand -> [`Q] operand -> text
+val addsd: [`Q] operand -> [`Q] operand -> text
 
 val subb: [`B] operand -> [`B] operand -> text
 val subw: [`W] operand -> [`W] operand -> text
 val subl: [`L] operand -> [`L] operand -> text
 val subq: [`Q] operand -> [`Q] operand -> text
+val subsd: [`Q] operand -> [`Q] operand -> text
+
 
 val imulw: [`W] operand -> [`W] operand -> text
 val imull: [`L] operand -> [`L] operand -> text
 val imulq: [`Q] operand -> [`Q] operand -> text
+val mulsd: [`Q] operand -> [`Q] operand -> text
 
 val idivq: [`Q] operand -> text
 val cqto: text
@@ -346,6 +354,7 @@ val comment : string -> [> ] asm
 (** {2 Données } *)
 
 val string : string -> data
+val double : float -> data
   (** une constante chaîne de caractères (terminée par 0) *)
 
 val dbyte : int list -> data
