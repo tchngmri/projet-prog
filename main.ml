@@ -6,6 +6,8 @@ open Format
 open X86_64
 
 let calcul_total expr = 
+(* prend une expression de type exp en argument, renvoie la liste des flottants à définir, 
+et les instructions en assembleur correspondant aux opérations souhaitées *)
   let i = ref 0 and l = ref [] in 
   let rec calcul  = function
     | Int x -> movq (imm x) (reg rdi) 
@@ -71,6 +73,7 @@ let calcul_total expr =
   (!l, calcul expr)
 
 let printi = 
+(*imprime le résultat si c'est un entier*)
   label "print_int" ++ 
   movq (reg rdi) (reg rsi) ++
   movq (ilab "S_int") (reg rdi) ++ 
@@ -79,6 +82,7 @@ let printi =
   ret
 
 let printflo = 
+(*imprime le résultat si c'est un flottant*)
   label "print_float" ++ 
   movq (ilab "S_float") (reg rdi) ++
   movq (imm 1) (reg rax) ++
@@ -87,9 +91,11 @@ let printflo =
 
 
 let affiche_resultat expr = 
+(* détermmine quel print appeler en fonction du type du résultat *)
   if (type_resultat expr == 1) then call "print_int" else call "print_float"
 
 let rec valeurflottants = function 
+(* crée les flottants val0, val1, ... *)
   | [] -> nop
   | (i,x)::y -> label ("val"^(string_of_int i)) ++ double x ++ valeurflottants y
   
@@ -106,14 +112,14 @@ let principale expr =
     data = 
       label "S_int" ++ string "Le resultat est %d !\n" ++
       label "S_float" ++ string "Le resultat est %f !\n" ++ valeurflottants l; } in 
-  let c = open_out "resultat.s" in (*crée un fichier*)
+  let c = open_out "resultat.s" in (* crée un fichier *)
   let fmt = formatter_of_out_channel c in 
-  X86_64.print_program fmt code; (*ecrit code dans fichier*)
-  close_out c (*ferme le fichier*)
+  X86_64.print_program fmt code; (* ecrit le code dans fichier *)
+  close_out c (* ferme le fichier *)
 
 
 let _ =
-  let argument = Lexing.from_channel (open_in Sys.argv.(1)) in 
-  let expr = Parser.parse Lexer.token argument in
+  let argument = Lexing.from_channel (open_in Sys.argv.(1)) in (* arbre lexical *)
+  let expr = Parser.parse Lexer.token argument in (* arbre syntaxique *)
   if not (Asyntax.bien_typee expr) then (failwith "Erreur de typage") else
   principale expr

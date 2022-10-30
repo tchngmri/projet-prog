@@ -1,10 +1,11 @@
 exception Error of string
 
+(* type exp est le type défini dans le sujet : *)
 type exp = Int of int | Float of float | Par of exp | Moins of exp | Plus of exp | IN of exp | FLO of exp | Plusi of exp*exp 
 | Multi of exp*exp | Moinsi of exp*exp | Divi of exp * exp| Mod of exp*exp | Plusf of exp*exp | Multf of exp*exp | Moinsf of exp*exp ;;
 
 let bien_typee expr =
-(* vérifie qu'une expression est bien typée *)
+(* vérifie qu'une expression exp est bien typée (par exemple, pas d'addition d'un flottant et d'un entier) *)
   let rec aux = function
     | Int _ -> (true,1)
     | Float _ -> (true, 0)
